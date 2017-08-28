@@ -3,7 +3,7 @@ package com.yangguang.domain;
 import java.util.List;
 
 public class Page {
-	private List records;
+	private List<Book> records;
 	private int pageSize = 3;//每页显示的条数
 	private int totalPage;//总页码数
 	private int currentPageNum;//当前页码
@@ -12,6 +12,8 @@ public class Page {
 	
 	private int startIndex;//每页开始记录的索引
 	private int totalRecords;//总记录条数
+	
+	private String url;
 	
 	public Page(int currentPageNum,int totalRecords) {
 		this.currentPageNum = currentPageNum;
@@ -22,11 +24,11 @@ public class Page {
 		startIndex = (currentPageNum-1)*pageSize;
 	}
 
-	public List getRecords() {
+	public List<Book> getRecords() {
 		return records;
 	}
 
-	public void setRecords(List records) {
+	public void setRecords(List<Book> records) {
 		this.records = records;
 	}
 
@@ -95,6 +97,13 @@ public class Page {
 	public void setTotalRecords(int totalRecords) {
 		this.totalRecords = totalRecords;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
-	 
 }

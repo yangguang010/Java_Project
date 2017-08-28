@@ -38,7 +38,17 @@ public class BusinessServiceImp implements BusinessService {
 	
 	public Page findAllBookPageRecords(String pagenum) {
 		
-		return null;
+		int currentPageNum = 1;
+		if (pagenum != null) {
+			currentPageNum = Integer.parseInt(pagenum);
+		}
+		
+		int totalRecords = bookDao.findAllBooksNumber();
+		Page page = new Page(currentPageNum, totalRecords);
+		
+		page.setRecords(bookDao.findPageBooks(page.getStartIndex(), page.getPageSize()));
+		
+		return page;
 	}
 
 	

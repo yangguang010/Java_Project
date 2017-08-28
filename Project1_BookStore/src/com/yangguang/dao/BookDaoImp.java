@@ -16,7 +16,7 @@ public class BookDaoImp implements BookDao {
 	private QueryRunner qRunner = new QueryRunner(JDBCUtil.getDataSource());
 	public void save(Book book) {
 		try {
-			qRunner.update("insert into books (id,name,author,price,path,photoFileName,description,categoryId) values(?,?,?,?,?,?,?,?)",
+			qRunner.update("insert into books (id,name,author,price,path,photoFileName,description,categoryId) values (?,?,?,?,?,?,?,?)",
 					book.getId(),
 					book.getName(),
 					book.getAuthor(),
@@ -24,7 +24,7 @@ public class BookDaoImp implements BookDao {
 					book.getPath(),
 					book.getPhotoFileName(),
 					book.getDescription(),
-					book.getCategoryID()
+					book.getCategoryId()
 					);
 		} catch (SQLException e) {
 			

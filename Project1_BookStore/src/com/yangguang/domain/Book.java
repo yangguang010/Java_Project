@@ -10,7 +10,7 @@ public class Book implements Serializable {
 	private String path;
 	private String photoFileName;
 	private String description;
-	private String categoryID;
+	private String categoryId;
 	public String getId() {
 		return id;
 	}
@@ -53,11 +53,11 @@ public class Book implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCategoryID() {
-		return categoryID;
+	public String getCategoryId() {
+		return categoryId;
 	}
-	public void setCategoryID(String categoryID) {
-		this.categoryID = categoryID;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 }
