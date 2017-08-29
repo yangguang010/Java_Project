@@ -15,7 +15,7 @@
 <a href="${pageContext.request.contextPath}/manager/addCategory.jsp">添加分类</a>
 <a href="${pageContext.request.contextPath}/servlet/ControlServlet?op=showAllCategories">查询分类</a>
 <a href="${pageContext.request.contextPath}/servlet/ControlServlet?op=addBookURL">添加图书</a>
-<a href="">查询图书</a>
+<a href="${pageContext.request.contextPath}/servlet/ControlServlet?op=showAllBooks">查询图书</a>
 <a href="">待处理订单</a>
 <a href="">已处理订单</a>
 <br/>

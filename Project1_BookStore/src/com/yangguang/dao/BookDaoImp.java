@@ -62,13 +62,11 @@ public class BookDaoImp implements BookDao {
 	public List<Book> findPageBooks(int startIndex, int offset) {
 		
 		try {
-			qRunner.query("select * from books limit ?,?", new BeanListHandler<Book>(Book.class),startIndex,offset);
+			return qRunner.query("select * from books limit ?,?", new BeanListHandler<Book>(Book.class),startIndex,offset);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		
-		
-		return null;
 	}
 
 }

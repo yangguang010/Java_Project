@@ -12,7 +12,5 @@ public interface CategoryDao {
 	List<Category> findAll();
 
 	Category findById(String categoryId);
-	
-	void addBook(Book book);
 
 }

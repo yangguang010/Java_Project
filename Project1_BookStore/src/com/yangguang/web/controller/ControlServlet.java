@@ -19,6 +19,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.yangguang.domain.Book;
 import com.yangguang.domain.Category;
+import com.yangguang.domain.Page;
 import com.yangguang.service.BusinessService;
 import com.yangguang.service.BusinessServiceImp;
 import com.yangguang.util.fillBeanUtil;
@@ -38,9 +39,23 @@ public class ControlServlet extends HttpServlet {
 		} else if ("addBookURL".equals(op)) {
 			addBookURL(req,resp);
 		} else if ("addBook".equals(op)) {
-			
 			addBook(req, resp);
+		} else if ("showAllBooks".equals(op)) {
+			showAllBooks(req,resp);
 		}
+	}
+
+	//分页显示所有书籍
+	private void showAllBooks(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String pagenum = request.getParameter("num");
+		Page page = businessService.findAllBookPageRecords(pagenum);
+		
+		page.setUrl("/servlet/ControlServlet?op=showAllBooks");
+		
+		request.setAttribute("page", page);
+		request.getRequestDispatcher("/manager/listBooks.jsp").forward(request, response);
+		
 	}
 
 
@@ -77,14 +92,16 @@ public class ControlServlet extends HttpServlet {
 						fileName = UUID.randomUUID().toString()+"."+FilenameUtils.getExtension(fileName);
 						//计算存储路径
 						String storeDirectory = getServletContext().getRealPath("/images");
-						String path = makeDirs(storeDirectory, fileName);// /dir1/dir2
+						String storeDirectory1=storeDirectory.substring(0, 19)+storeDirectory.substring(82, 101)+"WebContent\\"+storeDirectory.substring(101, 107);
+						String path = makeDirs(storeDirectory1, fileName);// /dir1/dir2
 						
 						book.setPath(path);
 						book.setPhotoFileName(fileName);
 						
 						//上传
-						
-						item.write(new File(storeDirectory+path+"/"+fileName));
+						String photoPath = storeDirectory1+path+"/"+fileName;
+						File filePath = new File(photoPath);
+						item.write(filePath);
 						
 					}	
 						
@@ -100,9 +117,6 @@ public class ControlServlet extends HttpServlet {
 		
 		
 	}
-
-
-
 	//显示添加书籍的界面
 	private void addBookURL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Category> categories = new ArrayList<Category>();

@@ -42,15 +42,4 @@ public class CategoryDaoImp implements CategoryDao {
 		}
 	}
 
-	
-	public void addBook(Book book) {
-		try {
-			queryRunner.update("insert into books (id,name,author,price,path,photoFilenName,description,catagoryId) value(?,?,?,?,?,?,?,?)",
-					book.getId(),book.getName(),book.getAuthor(),book.getPrice(),book.getPath(),book.getPhotoFileName(),book.getDescription(),book.getCategoryID());
-		} catch (SQLException e) {
-			
-			throw new RuntimeException(e);
-		}
-	}
-
 }
