@@ -35,15 +35,12 @@ public class BookDaoImp implements BookDao {
 	
 
 	public Book findById(String bookId) {
-		
 		try {
 			 return qRunner.query("select * from books where id=?", new BeanHandler<Book>(Book.class), bookId);
 		} catch (SQLException e) {
 			
 			throw new RuntimeException(e);
 		}
-		
-
 	}
 
 	public int findAllBooksNumber() {
@@ -56,9 +53,6 @@ public class BookDaoImp implements BookDao {
 		}
 	}
 
-
-
-	
 	public List<Book> findPageBooks(int startIndex, int offset) {
 		
 		try {
@@ -66,7 +60,28 @@ public class BookDaoImp implements BookDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
 
+
+
+	//查询分类信息中的图书数量
+	public int findCategoryBooksNumber(String categoryId) {
+		try {
+			Object object = qRunner.query("select count(*) from books where categoryId=?", new ScalarHandler(1),categoryId);
+			Long num = (Long)object;
+			return num.intValue();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	public List<Book> findPageBooks(int startIndex, int pageSize, String categoryId) {
+		try {
+			return qRunner.query("select * from books where categoryId=? limit ?,?", new BeanListHandler<Book>(Book.class),categoryId,startIndex,pageSize);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 }

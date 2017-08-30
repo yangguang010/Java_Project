@@ -31,4 +31,19 @@ public interface BookDao {
 	 * @return
 	 */
 	Book findById(String bookId);
+	
+	/**
+	 * 根据分类信息查询该分类的所有图书数量
+	 * @return
+	 */
+	int findCategoryBooksNumber(String categoryId);
+	
+	/**
+	 * 根据页码信息+分类信息查询图书
+	 * @param startIndex 查询起始位置
+	 * @param pageSize   每页中数据量
+	 * @param categoryId 分类Id
+	 * @return 查询到的书本信息
+	 */
+	List<Book> findPageBooks(int startIndex, int pageSize, String categoryId);
 }

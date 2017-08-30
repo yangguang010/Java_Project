@@ -30,9 +30,26 @@ public interface BusinessService {
 	 * @param book
 	 */
 	void addBook(Book book);
-	
+	/**
+	 * 根据页码信息查询图书
+	 * @param pagenum 返回页码信息
+	 * @return
+	 */
 	Page findAllBookPageRecords(String pagenum);
 	
+	
+	/**
+	 * 根据页码信息,以及分类的ID信息查询图书
+	 * @param pagenum 返回页码信息
+	 * @return
+	 */
+	Page findAllBookPageRecords(String pagenum,String categoryId);
+	
+	/**
+	 * 根据ID号查询一本图书信息
+	 * @param bookId
+	 * @return 图书信息
+	 */
 	Book findBookById(String bookId);
 	
 }
