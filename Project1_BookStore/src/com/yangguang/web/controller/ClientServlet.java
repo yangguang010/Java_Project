@@ -7,11 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.yangguang.domain.Book;
 import com.yangguang.domain.Category;
 import com.yangguang.domain.Page;
 import com.yangguang.service.BusinessService;
 import com.yangguang.service.BusinessServiceImp;
+import com.yangguang.web.beans.Cart;
 
 public class ClientServlet extends HttpServlet {
 	private BusinessService businessService = new BusinessServiceImp();
@@ -22,7 +25,44 @@ public class ClientServlet extends HttpServlet {
 			showIndex(req,resp);
 		}else if ("showCategoryBooks".trim().equals(op)) {
 			showCategoryBooks(req,resp);
+		}else if ("showBookDetails".trim().equals(op)) {
+			showBookDetails(req,resp);
+		}else if ("buyBooks".trim().equals(op)) {
+			buyBooks(req,resp);
 		}
+	}
+	
+	//将要买的书籍添加到购物车
+	private void buyBooks(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String bookId = request.getParameter("bookId");
+		Book book = businessService.findBookById(bookId);
+		//放入购物车
+			//为了保证每一个用户只有一个购物车，必须首先进行判断
+		
+		HttpSession session = request.getSession();
+		Cart cart = (Cart) session.getAttribute("cart");
+		if(cart == null){
+			cart = new Cart();
+			session.setAttribute("cart",cart);
+		}
+		//用户肯定有一个购物车
+		cart.addBook(book);
+		
+		request.setAttribute("msg", "书籍以及放入您的购物车，<a href='"+request.getContextPath()+"'>继续购物</a>");
+		request.getRequestDispatcher("/message.jsp").forward(request, response);
+	}
+
+	//显示书本的id查询书籍的详细信息
+	private void showBookDetails(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String id = request.getParameter("id");
+		Book book = businessService.findBookById(id);
+		
+		request.setAttribute("book", book);
+		
+		request.getRequestDispatcher("/showDetails.jsp").forward(request, response);
+		
 	}
 
 	//按照分类进行分页查询

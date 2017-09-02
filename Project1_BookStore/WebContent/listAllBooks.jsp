@@ -14,7 +14,7 @@
 	    		书名：${b.name}<br/>
 	    		作者：${b.author}<br/>
 	    		售价：${b.price}<br/>
-	    		<a href="">去看看</a>
+	    		<a href="${pageContext.request.contextPath}/servlet/ClientServlet?op=showBookDetails&id=${b.id}">去看看</a>
 	    	</td>
 	    </c:forEach>
 	  </tr>

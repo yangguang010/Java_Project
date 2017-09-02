@@ -16,6 +16,6 @@
 <a href="${pageContext.request.contextPath}">登录</a>
 <a href="${pageContext.request.contextPath}">免费注册</a>
 <a href="${pageContext.request.contextPath}">我的订单</a>
-<a href="">购物车</a>
+<a href="${pageContext.request.contextPath}/showCart.jsp">购物车</a>
 <br/>
 <hr/>
