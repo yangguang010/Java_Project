@@ -10,6 +10,14 @@ public class CartItem implements Serializable {
 	public CartItem(Book book) {
 		this.book = book;
 	}
+	
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
 	private int quantity;//小计数量
 	private float totalPrice;//金额小计
 	public int getQuantity() {

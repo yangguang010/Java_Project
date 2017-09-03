@@ -19,7 +19,7 @@ public class Cart implements Serializable {
 		this.items = items;
 	}
 	public int getTotalQuantity() {
-		//TODO 有问题
+		totalQuantity =0;//防止每次点击“购物车”后数量累加
 		for(Map.Entry<String, CartItem> item:items.entrySet()) {
 			totalQuantity += item.getValue().getQuantity();
 		}
@@ -30,7 +30,7 @@ public class Cart implements Serializable {
 		this.totalQuantity = totalQuantity;
 	}
 	public float getAmount() {
-		//TODO 有问题
+		amount = 0;//防止每次点击“购物车”后金额累加
 		for(Map.Entry<String, CartItem> item:items.entrySet()) {
 			amount += item.getValue().getTotalPrice();
 		}

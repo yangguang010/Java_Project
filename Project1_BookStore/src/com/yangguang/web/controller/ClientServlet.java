@@ -15,6 +15,7 @@ import com.yangguang.domain.Page;
 import com.yangguang.service.BusinessService;
 import com.yangguang.service.BusinessServiceImp;
 import com.yangguang.web.beans.Cart;
+import com.yangguang.web.beans.CartItem;
 
 public class ClientServlet extends HttpServlet {
 	private BusinessService businessService = new BusinessServiceImp();
@@ -29,9 +30,36 @@ public class ClientServlet extends HttpServlet {
 			showBookDetails(req,resp);
 		}else if ("buyBooks".trim().equals(op)) {
 			buyBooks(req,resp);
+		}else if ("changeNum".trim().equals(op)) {
+			changeNum(req,resp);
+		}else if ("delOneItem".trim().equals(op)) {
+			delOneItem(req,resp);
 		}
 	}
 	
+	//删除购物车中的某项
+	private void delOneItem(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+			String bookId = request.getParameter("bookId");
+			Cart cart = (Cart) request.getSession().getAttribute("cart");
+			cart.getItems().remove(bookId);
+			response.sendRedirect(request.getContextPath()+"/showCart.jsp");
+			
+	}
+	//修改购物车中的书本数量及价格
+	private void changeNum(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		String bookId = request.getParameter("bookId");
+		int bookNum = Integer.parseInt(request.getParameter("num"));
+		
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartItem item = cart.getItems().get(bookId);
+		item.setQuantity(bookNum);
+		
+		response.sendRedirect(request.getContextPath()+"/showCart.jsp");
+		
+	}
+
 	//将要买的书籍添加到购物车
 	private void buyBooks(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
